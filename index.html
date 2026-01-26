@@ -15,7 +15,7 @@
             <input type="text" id="name-input" maxlength="8" placeholder="닉네임을 입력하세요">
             <button class="btn" onclick="Game.prepare()">게임 시작</button>
             <button class="btn btn-danger" onclick="Game.reset()">데이터 초기화</button>
-            <div class="version-text">Ver 17.2 (Inventory Update)</div>
+            <div class="version-text">Ver 17.2 (Fixed)</div>
         </div>
     </div>
 
@@ -50,8 +50,10 @@
         </header>
 
         <div class="content-area">
-            <div id="tab-forge" class="tab-view show>
+            <div id="tab-forge" class="tab-view show">
+                
                 <div id="global-log" style="margin-bottom: 10px;"></div>
+
                 <div class="forge-header">
                     <button class="btn-arrow" onclick="Game.switchEquipType(-1)">◀</button>
                     <h2 id="forge-title" style="color:var(--gold);">검 (Weapon)</h2>
