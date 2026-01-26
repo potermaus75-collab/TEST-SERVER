@@ -81,6 +81,8 @@ header { height: 50px; background: #1a1a1a; display: flex; justify-content: spac
     margin-top: 20px;
     display: flex;
     flex-direction: column;
+    
+    z-index: 1;
 }
 
 .npc-area {
@@ -92,6 +94,9 @@ header { height: 50px; background: #1a1a1a; display: flex; justify-content: spac
     margin-bottom: -10px;
     z-index: 5;
     padding-right: 10px;
+    
+    z-index: 1; 
+    margin-bottom: -25px;
 }
 
 .npc-bubble {
@@ -113,7 +118,7 @@ header { height: 50px; background: #1a1a1a; display: flex; justify-content: spac
 }
 @keyframes float { 0%{transform:translateY(0)} 50%{transform:translateY(-5px)} 100%{transform:translateY(0)} }
 
-.shop-stand { background: #5d4037; border-top: 6px solid #8d6e63; padding: 15px; border-radius: 5px; position: relative; z-index: 2; box-shadow: 0 -5px 15px rgba(0,0,0,0.6); display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.shop-stand { background: #5d4037; border-top: 6px solid #8d6e63; padding: 15px; border-radius: 5px; position: relative; z-index: 5; box-shadow: 0 -5px 15px rgba(0,0,0,0.6); display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .shop-item { background: #3e2723; border: 1px solid #6d4c41; border-radius: 5px; padding: 10px; display: flex; flex-direction: column; align-items: center; cursor: pointer; transition: 0.1s; }
 .shop-item:active { transform: scale(0.95); background: #4e342e; }
 .shop-item img { width: 45px; height: 45px; margin-bottom: 5px; object-fit: contain; }
