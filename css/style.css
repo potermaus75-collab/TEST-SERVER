@@ -74,10 +74,69 @@ header { height: 50px; background: #1a1a1a; display: flex; justify-content: spac
 .btn-small { padding: 5px 10px; font-size: 0.8rem; background: #333; border: 1px solid #555; color: #fff; border-radius: 4px; cursor: pointer; }
 .btn-close { background: none; border: none; cursor: pointer; padding: 5px; }
 
-.shop-scene { background: #2c2016; border-radius: 10px; padding: 15px; border: 2px solid #5d4037; text-align: center; position: relative; overflow: hidden; margin-top: 10px; }
-.npc-area { height: 100px; display: flex; justify-content: center; align-items: flex-end; position: relative; margin-bottom: -15px; z-index: 1; }
-.npc-img { width: 100px; height: 100px; object-fit: contain; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.5)); }
-.npc-bubble { position: absolute; top: 0; right: 10%; background: #fff; color: #000; padding: 5px 10px; border-radius: 10px; font-size: 0.8rem; font-weight: bold; animation: float 2s infinite ease-in-out; border: 2px solid #000; }
+/* [css/style.css 수정 및 추가] */
+
+/* 1. 상점 레이아웃 개선 (고블린 우측 배치) */
+.shop-scene {
+    background: #2c2016;
+    border-radius: 10px;
+    padding: 15px;
+    border: 2px solid #5d4037;
+    position: relative;
+    overflow: visible; /* 말풍선 잘림 방지 */
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.npc-area {
+    height: 100px;
+    display: flex;
+    justify-content: flex-end; /* 우측 정렬 */
+    align-items: flex-end;
+    position: relative;
+    margin-bottom: -10px;
+    z-index: 5;
+    padding-right: 10px;
+}
+
+.npc-bubble {
+    position: absolute;
+    top: -10px;
+    right: 90px; /* 고블린 왼쪽으로 배치 */
+    background: #fff;
+    color: #000;
+    padding: 8px 12px;
+    border-radius: 15px;
+    border-bottom-right-radius: 0; /* 말풍선 꼬리 방향 변경 */
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: 2px solid #000;
+    white-space: nowrap;
+    z-index: 10;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    animation: float 2s infinite ease-in-out;
+}
+
+/* 2. 인벤토리 재료 칸 스타일 */
+.inv-category {
+    font-size: 0.9rem;
+    color: #888;
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.item-slot .mat-count {
+    position: absolute;
+    bottom: 2px;
+    right: 4px;
+    font-size: 0.8rem;
+    color: #fff;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #000;
+}
+
 .shop-stand { background: #5d4037; border-top: 6px solid #8d6e63; padding: 15px; border-radius: 5px; position: relative; z-index: 2; box-shadow: 0 -5px 15px rgba(0,0,0,0.6); display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .shop-item { background: #3e2723; border: 1px solid #6d4c41; border-radius: 5px; padding: 10px; display: flex; flex-direction: column; align-items: center; cursor: pointer; transition: 0.1s; }
 .shop-item:active { transform: scale(0.95); background: #4e342e; }
