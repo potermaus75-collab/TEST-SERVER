@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>전설의 대장장이 V17.2</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+    <div id="intro" class="screen active">
+        <h1 class="intro-title">전설의 대장장이<br><small>ARMOR UPDATE</small></h1>
+        <div class="intro-box">
+            <input type="text" id="name-input" maxlength="8" placeholder="닉네임을 입력하세요">
+            <button class="btn" onclick="Game.prepare()">게임 시작</button>
+            <button class="btn btn-danger" onclick="Game.reset()">데이터 초기화</button>
+            <div class="version-text">Ver 17.2</div>
+        </div>
+    </div>
+
+    <div id="story-screen" class="screen">
+        <h2 style="color:var(--main); margin-bottom:20px;">프롤로그</h2>
+        <div class="story-text">
+            오랫동안 방치되었던 낡은 대장간.<br>
+            먼지 쌓인 모루와 식어버린 화로.<br><br>
+            당신은 이곳에서 전설의 검을 만들기 위한<br>
+            첫 번째 망치질을 시작합니다.<br><br>
+            <b>"준비는 끝났다."</b>
+        </div>
+        <button class="btn" onclick="Game.enterWorld()">대장간 입장</button>
+    </div>
+
+    <div id="game" class="screen">
+        <header>
+            <div class="header-group">
+                <div class="header-profile" onclick="UI.openProfile()">
+                    <img src="icon_user.png" class="ico-m" style="border-radius:50%; background:#333;" onerror="this.src='sword0.png'">
+                    <b><span id="ui-name">Guest</span></b>
+                </div>
+                <button class="btn-small" onclick="UI.help()">?</button>
+            </div>
+            <div class="header-group">
+                <div style="font-size:0.8rem; color:#666; margin-right:10px;">Auto Save</div>
+                <div style="display:flex; align-items:center; gap:5px;">
+                    <img src="icon_gold.png" class="ico-s" onerror="this.style.display='none'">
+                    <span id="ui-gold">0</span>G
+                </div>
+            </div>
+        </header>
+
+        <div id="global-log"></div>
+
+        <div class="content-area">
+            <div id="tab-forge" class="tab-view show">
+                <div class="forge-header">
+                    <button class="btn-arrow" onclick="Game.switchEquipType(-1)">◀</button>
+                    <h2 id="forge-title" style="color:var(--gold);">검 (Weapon)</h2>
+                    <button class="btn-arrow" onclick="Game.switchEquipType(1)">▶</button>
+                </div>
+
+                <div class="forge-box">
+                    <div id="sword-wrap" class="sword-area">
+                        <div class="orbit"></div>
+                        <img id="equip-display" class="img-display" src="" alt="장비">
+                    </div>
+                    <div class="forge-info">
+                        <h3 id="ui-equip-name" style="display:flex; justify-content:center; align-items:center; gap:5px;">이름</h3>
+                        <div id="ui-equip-lvl">+0</div>
+                    </div>
+                    
+                    <div id="anim-layer">
+                        <div class="sword-area">
+                            <div class="orbit" id="anim-orbit"></div>
+                            <img id="anim-equip" src="" class="img-display">
+                        </div>
+                        <img id="anim-tool" src="" class="anim-tool-img">
+                        <h3 id="anim-text" style="margin-top:20px; color:#fff;">...</h3>
+                    </div>
+                </div>
+
+                <div class="item-control-box">
+                    <label class="item-check">
+                        <input type="checkbox" id="chk-whetstone"> 
+                        <img src="whetstone.png" class="ico-m" onerror="this.src='sword0.png'">
+                        <span>숫돌 (<span id="cnt-whetstone">0</span>)</span>
+                    </label>
+                    <label class="item-check">
+                        <input type="checkbox" id="chk-charm"> 
+                        <img src="charm.png" class="ico-m" onerror="this.src='sword0.png'">
+                        <span>부적 (<span id="cnt-charm">0</span>)</span>
+                    </label>
+                </div>
+
+                <div class="stat-box" style="text-align:center;">
+                    <div style="display:inline-flex; gap:15px; align-items:center; justify-content:center;">
+                        <span style="color:var(--main); font-size:1.1rem;">
+                            <img src="icon_atk.png" class="ico-m"> <b id="ui-atk">0</b>
+                        </span>
+                        <span style="color:#aaa;">|</span>
+                        <span style="color:#2ecc71; font-size:1.1rem;">
+                            <img src="icon_hp.png" class="ico-m"> <b id="ui-hp">0</b>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="mode-switch">
+                    <div id="mode-enhance" class="mode-opt active" onclick="Game.setMode('enhance')">강화하기</div>
+                    <div id="mode-polish" class="mode-opt" onclick="Game.setMode('polish')">광내기</div>
+                </div>
+                <button id="btn-action" class="btn" onclick="Game.doAction()">
+                    <img src="icon_atk.png" class="ico-s"> <span>강화 시도</span>
+                </button>
+                <button class="btn" style="background:#333; margin-top:5px;" onclick="Game.store()">보관함 넣기</button>
+            </div>
+
+            <div id="tab-inv" class="tab-view"><div id="inv-list" class="grid-box"></div></div>
+            
+            <div id="tab-shop" class="tab-view"><div id="shop-list"></div></div>
+
+            <div id="tab-book" class="tab-view">
+                <div class="book-tabs">
+                    <div id="btab-sword" class="book-tab active" onclick="UI.setBookTab('sword')">🗡️ 검</div>
+                    <div id="btab-armor" class="book-tab" onclick="UI.setBookTab('armor')">🛡️ 갑옷</div>
+                </div>
+                <div id="book-list" class="book-grid"></div>
+            </div>
+            
+            <div id="tab-hunt" class="tab-view"><div id="hunt-list"></div></div>
+        </div>
+
+        <nav class="nav-bar">
+            <div class="nav-item on" id="nav-forge" onclick="UI.tab('forge')"><img src="menu_forge.png" class="ico-l"><span>대장간</span></div>
+            <div class="nav-item" id="nav-inv" onclick="UI.tab('inv')"><img src="menu_inv.png" class="ico-l"><span>가방</span></div>
+            <div class="nav-item" id="nav-shop" onclick="UI.tab('shop')"><img src="menu_shop.png" class="ico-l"><span>상점</span></div>
+            <div class="nav-item" id="nav-book" onclick="UI.tab('book')"><img src="menu_book.png" class="ico-l"><span>도감</span></div>
+            <div class="nav-item" id="nav-hunt" onclick="UI.tab('hunt')"><img src="menu_hunt.png" class="ico-l"><span>사냥터</span></div>
+        </nav>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <div id="modal-help" class="modal">
+        <div class="modal-con">
+            <div style="text-align:right;"><button class="btn-close" onclick="document.getElementById('modal-help').style.display='none'"><img src="icon_close.png" class="ico-m"></button></div>
+            <div id="help-body">
+                <h3>게임 가이드</h3>
+                <p>◀ ▶ 버튼으로 검과 갑옷을 전환하세요.</p>
+                <p><img src="whetstone.png" class="ico-s"> <b>숫돌:</b> 성공률 +5%</p>
+                <p><img src="charm.png" class="ico-s"> <b>부적:</b> 파괴 방어</p>
+                <p><img src="icon_polish.png" class="ico-s" onerror="this.src='icon_shiny.png'"> <b>광내기:</b> 이로치 획득 시도</p>
+                <table class="prob-table"><thead><tr><th>단계</th><th>성공</th><th>하락</th><th>파괴</th></tr></thead><tbody id="prob-tbody"></tbody></table>
+            </div>
+            
+            <div id="lore-body" style="display:none; text-align:left;">
+                <button id="btn-lore-switch" class="btn-small" style="margin-bottom:10px; width:100%;" onclick="UI.toggleLoreMode()">🔄 모드 전환</button>
+                <div style="background:#000; border-radius:10px; padding:10px; margin-bottom:10px; text-align:center;">
+                    <img id="lore-img" src="" style="width:120px; height:120px; object-fit:contain;">
+                </div>
+                <h3 id="lore-name" style="color:var(--main); text-align:center; margin-bottom:5px; display:flex; justify-content:center; align-items:center; gap:5px;"></h3>
+                <div id="lore-stats" style="text-align:center; font-size:0.8rem; color:gold; margin-bottom:15px; border-bottom:1px solid #333; padding-bottom:10px;"></div>
+                <div style="font-size:0.85rem; color:#aaa; margin-bottom:5px;">
+                    <img src="icon_user.png" class="ico-s"> <b>정보:</b> <span id="lore-owner" style="color:#fff;"></span>
+                </div>
+                <div style="font-size:0.85rem; color:#aaa;">
+                    <img src="icon_story.png" class="ico-s" onerror="this.src='icon_shiny.png'"> <b>이야기:</b>
+                </div>
+                <p id="lore-desc" style="color:#ccc; line-height:1.6; font-size:0.85rem; word-break: keep-all; margin-top:5px;"></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-profile" class="modal">
+        <div class="modal-con">
+            <div style="text-align:right;"><button class="btn-close" onclick="document.getElementById('modal-profile').style.display='none'"><img src="icon_close.png" class="ico-m"></button></div>
+            <h3 style="color:var(--main); margin-bottom:15px;"><img src="icon_trophy.png" class="ico-m" onerror="this.style.display='none'"> 업적 현황</h3>
+            <div id="achieve-list" class="achieve-list"></div>
+        </div>
+    </div>
+
+    <div id="modal-buy" class="modal">
+        <div class="modal-con">
+            <div id="buy-modal-content">
+                <h3 id="buy-title" style="margin-bottom:10px;">아이템명</h3>
+                <img id="buy-icon" src="" style="width:64px; height:64px; object-fit:contain;">
+                <div id="buy-desc" style="color:#aaa; margin:10px 0; font-size:0.9rem;">설명</div>
+                <div class="qty-control">
+                    <button class="btn-qty" onclick="Game.adjustQty(-1)">-</button>
+                    <input type="number" id="buy-qty" value="1" readonly>
+                    <button class="btn-qty" onclick="Game.adjustQty(1)">+</button>
+                </div>
+                <div style="margin-bottom:10px; color:gold;">총 <img src="icon_gold.png" class="ico-s"> <span id="buy-total">0</span></div>
+                <button class="btn" id="btn-buy-confirm">구매하기</button>
+                <button class="btn" style="background:#333; margin-top:5px;" onclick="document.getElementById('modal-buy').style.display='none'">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-battle" class="modal">
+        <div class="modal-con" style="display:flex; flex-direction:column; height:90%; border:none; padding:10px;">
+            <div id="battle-res">
+                <h2 id="res-title"></h2>
+                <p id="res-msg"></p>
+                <button class="btn" onclick="Battle.retry()">재도전</button>
+                <button class="btn" style="background:#333; margin-top:10px;" onclick="Battle.quit()">나가기</button>
+            </div>
+            <h3 style="color:var(--main);">AUTO COMBAT</h3>
+            
+            <div class="battle-field" id="battle-field">
+                <div id="btl-player-group" class="unit-group">
+                    <img id="btl-user" class="unit user" src="">
+                </div>
+                <img id="btl-mob" class="unit" src="">
+            </div>
+
+            <div style="text-align:left; width:100%;">
+                <div style="display:flex; justify-content:space-between;"><span>Mob</span><span id="txt-mob-hp"></span></div>
+                <div class="hp-bar-container"><div id="bar-mob" class="hp-fill" style="background:#e74c3c; width:100%;"></div></div>
+                <div style="margin-top:10px; display:flex; justify-content:space-between;">
+                    <span>Me (<img src="potion.png" class="ico-s" style="vertical-align:middle;"> <span id="btl-potion">0</span>)</span><span id="txt-user-hp"></span>
+                </div>
+                <div class="hp-bar-container"><div id="bar-user" class="hp-fill" style="background:#2ecc71; width:100%;"></div></div>
+            </div>
+            <div id="btl-log"></div>
+            <div style="margin-top:auto;">
+                <button class="btn" style="background:#333;" onclick="Battle.run()">
+                    <img src="icon_run.png" class="ico-s" onerror="this.style.display='none'"> 도망가기
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="data_swords.js"></script>
+<script src="data_armors.js"></script>
+<script src="data_mobs.js"></script>
+<script src="data_achieve.js"></script>
+<script src="game.js"></script>
+
+</body>
+</html>
