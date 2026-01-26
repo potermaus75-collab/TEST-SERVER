@@ -4,18 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>전설의 대장장이 V17.2</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <div id="app">
     <div id="intro" class="screen active">
-        <h1 class="intro-title">전설의 대장장이<br><small>ARMOR UPDATE</small></h1>
+        <h1 class="intro-title">전설의 대장장이<br><small>REMASTERED</small></h1>
         <div class="intro-box">
             <input type="text" id="name-input" maxlength="8" placeholder="닉네임을 입력하세요">
             <button class="btn" onclick="Game.prepare()">게임 시작</button>
             <button class="btn btn-danger" onclick="Game.reset()">데이터 초기화</button>
-            <div class="version-text">Ver 17.2</div>
+            <div class="version-text">Ver 17.2 (Folder Structure)</div>
         </div>
     </div>
 
@@ -231,16 +231,21 @@
     </div>
 </div>
 
-<script src="data_swords.js"></script>
-<script src="data_armors.js"></script>
-<script src="data_mobs.js"></script>
-<script src="data_achieve.js"></script>
+<script src="data/swords.js"></script>
+<script src="data/armors.js"></script>
+<script src="data/mobs.js"></script>
+<script src="data/achieve.js"></script>
 
 <script src="js/common.js"></script>
 <script src="js/ui.js"></script>
 <script src="js/battle.js"></script>
 <script src="js/game.js"></script>
 
+<script>
+    window.onload = function() {
+        console.log("Game Loaded Successfully.");
+    }
+</script>
+
 </body>
 </html>
-
