@@ -1,9 +1,9 @@
-/* [game.js] 메인 게임 로직 (Game 객체) */
+/* [js/game.js] 메인 게임 로직 (수정됨) */
 
 const Game = {
     prepare: function() {
         if(typeof SWORDS === 'undefined' || typeof MOBS === 'undefined') 
-            return alert("데이터 파일(data_swords.js, data_mobs.js) 로드 실패.");
+            return alert("데이터 파일 로드 실패.");
         
         if(typeof ARMORS === 'undefined') {
             window.ARMORS = Array(21).fill({ n: "임시 갑옷", hp: 100, desc: "데이터 없음", s_desc: "" });
@@ -35,7 +35,6 @@ const Game = {
             try { U = { ...U, ...JSON.parse(d) }; } catch(e) {}
         }
         
-        // 데이터 초기화 및 안전장치
         if(!U.sword) U.sword = { lvl:0, shiny:false };
         if(!U.armor) U.armor = { lvl:0, shiny:false };
         if(!U.inv) U.inv = [null, null];
@@ -207,6 +206,7 @@ const Game = {
                 if(!U.stats) U.stats = {kill:0, destroy:0};
                 U.stats.destroy = (U.stats.destroy || 0) + 1; 
                 
+                // [수정] 고철 -> 검의 파편
                 let scrapGain = 0;
                 if(oldLvl <= 6) scrapGain = Math.floor(Math.random() * 3); 
                 else if(oldLvl <= 15) scrapGain = Math.floor(Math.random() * 3) + 1; 
@@ -214,7 +214,7 @@ const Game = {
                 
                 if(scrapGain > 0) {
                     U.items.scrap += scrapGain;
-                    msg += ` <span style="color:#aaa; font-size:0.8rem;">(고철 +${scrapGain})</span>`;
+                    msg += ` <span style="color:#aaa; font-size:0.8rem;">(검의 파편 +${scrapGain})</span>`;
                 }
             }
         } 
@@ -314,12 +314,13 @@ const Game = {
         const bubbleEl = document.querySelector('.npc-bubble');
         const imgEl = document.getElementById('npc-img-el');
         
+        // [수정] 고철 -> 검의 파편
         if(U.items.scrap >= 10) {
             U.items.scrap -= 10;
             U.items.charm++;
             if(imgEl) imgEl.src = "npc_goblin.png";
-            bubbleEl.innerText = "오오! 귀한 고철이잖아? 이걸 주면 부적을 주지!";
-            UI.toast("⚙️ 고철 10개를 건네주고 '파괴 방지 부적'을 받았습니다!");
+            bubbleEl.innerText = "오오! 파편이잖아? 이걸 주면 부적을 주지!";
+            UI.toast("⚙️ 검의 파편 10개를 건네주고 '파괴 방지 부적'을 받았습니다!");
             this.updateAll();
             this.save();
             return;
@@ -364,7 +365,7 @@ const Game = {
             this.updateAll();
             this.save();
         } else {
-            const bubbles = ["어서옵쇼!", "고철 없나?", "만지지 마세요.", "바쁩니다.", "...", "후우..."];
+            const bubbles = ["어서옵쇼!", "파편 없나?", "만지지 마세요.", "바쁩니다.", "...", "후우..."];
             if(bubbleEl) bubbleEl.innerText = bubbles[Math.floor(Math.random() * bubbles.length)];
         }
     },
@@ -488,3 +489,4 @@ const Game = {
         UI.renderList(); 
     }
 };
+
