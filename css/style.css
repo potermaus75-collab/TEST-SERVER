@@ -1,4 +1,4 @@
-/* [V17.2 FINAL COMPLETE STYLE] */
+/* [V17.2 COMPLETE STYLE] */
 :root { --main: #e94560; --bg: #121212; --panel: #1e1e1e; --gold: #f1c40f; }
 * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; font-family: 'Pretendard', sans-serif; margin: 0; padding: 0; }
 body { background: #000; color: #fff; height: 100dvh; display: flex; justify-content: center; overflow: hidden; }
@@ -33,7 +33,6 @@ header { height: 50px; background: #1a1a1a; display: flex; justify-content: spac
 .nav-item img { margin-bottom: 3px; filter: grayscale(100%); transition: 0.2s; }
 .nav-item.on img { filter: none; }
 
-/* [V17 UI] 대장간 헤더 및 갑옷 이미지 */
 .forge-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; background: #111; padding: 5px 10px; border-radius: 8px; border: 1px solid #333; }
 .btn-arrow { background: #333; border: 1px solid #555; color: #fff; padding: 5px 15px; border-radius: 5px; cursor: pointer; font-size: 1.2rem; }
 .btn-arrow:active { background: #555; }
@@ -43,7 +42,6 @@ header { height: 50px; background: #1a1a1a; display: flex; justify-content: spac
 .img-display { width: 140px; height: 140px; object-fit: contain; transition: 0.2s; position: relative; z-index: 2; }
 .img-display.armor-img { width: 160px; height: 160px; }
 
-/* 오오라 */
 .aura-1 { filter: drop-shadow(0 0 3px #2ecc71); }
 .aura-2 { filter: drop-shadow(0 0 5px #3498db); }
 .aura-3 { filter: drop-shadow(0 0 8px #9b59b6); }
@@ -65,8 +63,6 @@ header { height: 50px; background: #1a1a1a; display: flex; justify-content: spac
 .item-check input { width: 16px; height: 16px; accent-color: var(--main); }
 
 .stat-box { background: #222; padding: 12px; border-radius: 8px; font-size: 0.85rem; border: 1px solid #333; margin-bottom: 10px; }
-.row { display: flex; justify-content: space-between; margin-bottom: 4px; align-items: center; }
-
 .mode-switch { display: flex; background: #111; border-radius: 8px; padding: 4px; margin-bottom: 10px; border: 1px solid #444; width: 100%; }
 .mode-opt { flex: 1; text-align: center; padding: 8px 0; font-size: 0.9rem; color: #666; cursor: pointer; border-radius: 6px; transition: 0.2s; }
 .mode-opt.active { background: #333; color: #fff; font-weight: bold; }
@@ -74,16 +70,14 @@ header { height: 50px; background: #1a1a1a; display: flex; justify-content: spac
 .btn-small { padding: 5px 10px; font-size: 0.8rem; background: #333; border: 1px solid #555; color: #fff; border-radius: 4px; cursor: pointer; }
 .btn-close { background: none; border: none; cursor: pointer; padding: 5px; }
 
-/* [css/style.css 수정 및 추가] */
-
-/* 1. 상점 레이아웃 개선 (고블린 우측 배치) */
+/* [상점 스타일 수정 - NPC 우측 배치, 말풍선 좌측] */
 .shop-scene {
     background: #2c2016;
     border-radius: 10px;
     padding: 15px;
     border: 2px solid #5d4037;
     position: relative;
-    overflow: visible; /* 말풍선 잘림 방지 */
+    overflow: visible; 
     margin-top: 20px;
     display: flex;
     flex-direction: column;
@@ -108,7 +102,7 @@ header { height: 50px; background: #1a1a1a; display: flex; justify-content: spac
     color: #000;
     padding: 8px 12px;
     border-radius: 15px;
-    border-bottom-right-radius: 0; /* 말풍선 꼬리 방향 변경 */
+    border-bottom-right-radius: 0; 
     font-size: 0.8rem;
     font-weight: bold;
     border: 2px solid #000;
@@ -117,25 +111,7 @@ header { height: 50px; background: #1a1a1a; display: flex; justify-content: spac
     box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
     animation: float 2s infinite ease-in-out;
 }
-
-/* 2. 인벤토리 재료 칸 스타일 */
-.inv-category {
-    font-size: 0.9rem;
-    color: #888;
-    border-bottom: 1px solid #333;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-}
-
-.item-slot .mat-count {
-    position: absolute;
-    bottom: 2px;
-    right: 4px;
-    font-size: 0.8rem;
-    color: #fff;
-    font-weight: bold;
-    text-shadow: 1px 1px 0 #000;
-}
+@keyframes float { 0%{transform:translateY(0)} 50%{transform:translateY(-5px)} 100%{transform:translateY(0)} }
 
 .shop-stand { background: #5d4037; border-top: 6px solid #8d6e63; padding: 15px; border-radius: 5px; position: relative; z-index: 2; box-shadow: 0 -5px 15px rgba(0,0,0,0.6); display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .shop-item { background: #3e2723; border: 1px solid #6d4c41; border-radius: 5px; padding: 10px; display: flex; flex-direction: column; align-items: center; cursor: pointer; transition: 0.1s; }
@@ -150,12 +126,14 @@ header { height: 50px; background: #1a1a1a; display: flex; justify-content: spac
 #buy-qty { width: 60px; text-align: center; padding: 5px; background: #111; border: 1px solid #555; color: #fff; font-size: 1.2rem; }
 .btn-qty { width: 30px; height: 30px; background: #444; border: none; color: #fff; font-weight: bold; cursor: pointer; border-radius: 4px; }
 
+/* [인벤토리 스타일 추가] */
+.inv-category { font-size: 0.9rem; color: #888; border-bottom: 1px solid #333; padding-bottom: 5px; margin-bottom: 10px; }
 .grid-box { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
 .item-slot { aspect-ratio: 1; background: #222; border: 1px solid #444; border-radius: 5px; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; position: relative; }
 .item-slot img { width: 80%; height: 80%; object-fit: contain; }
 .item-lvl { position: absolute; bottom: 2px; right: 3px; font-size: 0.7rem; color: #fff; background: rgba(0,0,0,0.5); padding: 0 3px; border-radius: 3px; }
+.item-slot .mat-count { position: absolute; bottom: 2px; right: 4px; font-size: 0.8rem; color: #fff; font-weight: bold; text-shadow: 1px 1px 0 #000; }
 
-/* [V17 UI] 도감 탭 */
 .book-tabs { display: flex; margin-bottom: 10px; gap: 5px; }
 .book-tab { flex: 1; text-align: center; padding: 10px; background: #222; border: 1px solid #444; border-radius: 5px; cursor: pointer; color: #888; }
 .book-tab.active { background: var(--main); color: #fff; border-color: var(--main); font-weight: bold; }
@@ -226,33 +204,7 @@ header { height: 50px; background: #1a1a1a; display: flex; justify-content: spac
 
 .bullet { position: absolute; width: 30px; height: 30px; object-fit: contain; z-index: 4; pointer-events: none; }
 .orbit { position: absolute; width: 150px; height: 150px; border-radius: 50%; animation: spin 3s linear infinite; display: none; } .orbit::after { content:''; position: absolute; top: 0; left: 50%; width: 6px; height: 6px; background: #fff; border-radius: 50%; box-shadow: 0 0 10px #fff; } .shiny-active .orbit { display: block; }
-/* [V17.4 추가] 검기 애니메이션 */
-.sword-wave {
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    left: 100px; /* 플레이어 위치 앞 */
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    pointer-events: none;
-    animation: wave-fly 0.4s linear forwards;
-}
+.sword-wave { position: absolute; width: 60px; height: 60px; object-fit: contain; left: 100px; top: 50%; transform: translateY(-50%); z-index: 10; pointer-events: none; animation: wave-fly 0.4s linear forwards; }
+.css-wave { width: 40px; height: 80px; background: transparent; border-radius: 50%; box-shadow: -5px 0 10px rgba(255, 255, 255, 0.8), -10px 0 20px var(--main); border-left: 4px solid #fff; filter: blur(1px); }
+@keyframes wave-fly { 0% { left: 100px; opacity: 0.5; transform: translateY(-50%) scale(0.5); } 50% { opacity: 1; transform: translateY(-50%) scale(1.2); } 100% { left: 80%; opacity: 0; transform: translateY(-50%) scale(1); } }
 
-/* 이미지가 없을 때 CSS로 그리는 검기 */
-.css-wave {
-    width: 40px;
-    height: 80px;
-    background: transparent;
-    border-radius: 50%;
-    box-shadow: -5px 0 10px rgba(255, 255, 255, 0.8), -10px 0 20px var(--main);
-    border-left: 4px solid #fff;
-    filter: blur(1px);
-}
-
-@keyframes wave-fly {
-    0% { left: 100px; opacity: 0.5; transform: translateY(-50%) scale(0.5); }
-    50% { opacity: 1; transform: translateY(-50%) scale(1.2); }
-    100% { left: 80%; opacity: 0; transform: translateY(-50%) scale(1); }
-}
