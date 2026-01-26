@@ -1,4 +1,4 @@
-/* [common.js] 공통 데이터 및 전역 변수 */
+/* [js/common.js] 공통 데이터 및 전역 변수 */
 
 // 1. 필수 유틸
 function setText(id, text) {
@@ -23,11 +23,11 @@ let U = {
     hp: 100, maxHp: 100, atk: 10, 
     inv: [null, null], book: [],
     stats: { kill: 0, destroy: 0 }, achieved: [],
-    items: { potion: 0, whetstone: 0, charm: 0, scrap: 0 },
+    items: { potion: 0, whetstone: 0, charm: 0, scrap: 0 }, // scrap: 검의 파편
     npcCharmCount: 0, npcPunished: false
 };
 
-// 4. 게임 상태 전역 변수 (다른 파일들에서 공통으로 사용)
+// 4. 게임 상태 전역 변수
 let buyTarget = { key: '', price: 0, name: '' };
 let currentEquipType = 'sword'; 
 let currentMode = 'enhance';
